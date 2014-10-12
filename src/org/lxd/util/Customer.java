@@ -59,25 +59,7 @@ public class Customer {
 			Rental each = rentals.nextElement();
 			
 			///< datermine amounts for each line
-			switch (each.getMovie().getPriceCode()) {
-			case Movie.REGULAR:
-				thisAmount += 2;
-				if (each.getDaysRentded() > 2) {
-					thisAmount += (each.getDaysRentded() - 2) * 1.5;
-				}
-				break;
-				
-			case Movie.NEW_RELEASE:
-				thisAmount += each.getDaysRentded() * 3;
-				break;
-				
-			case Movie.CHILDRENS:
-				thisAmount += 1.5;
-				if (each.getDaysRentded() > 3) {
-					thisAmount += (each.getDaysRentded() - 3) * 1.5;
-				}
-				break;				
-			}
+			thisAmount = amountFor(each);
 			
 			///< add frequent renter points
 			frequentRenterPoints++;
@@ -95,5 +77,32 @@ public class Customer {
 		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
 		result += "You earned " + String.valueOf(frequentRenterPoints) + " frequest renter points";
 		return result;
+	}
+	
+	///< 重构第一步 分解并重组 statement() 
+	private double amountFor(Rental each) {
+		double thisAmount = 0;	
+		
+		switch (each.getMovie().getPriceCode()) {
+		case Movie.REGULAR:
+			thisAmount += 2;
+			if (each.getDaysRentded() > 2) {
+				thisAmount += (each.getDaysRentded() - 2) * 1.5;
+			}
+			break;
+			
+		case Movie.NEW_RELEASE:
+			thisAmount += each.getDaysRentded() * 3;
+			break;
+			
+		case Movie.CHILDRENS:
+			thisAmount += 1.5;
+			if (each.getDaysRentded() > 3) {
+				thisAmount += (each.getDaysRentded() - 3) * 1.5;
+			}
+			break;				
+		}
+		
+		return thisAmount;
 	}
 }
