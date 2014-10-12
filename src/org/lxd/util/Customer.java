@@ -59,7 +59,7 @@ public class Customer {
 			Rental each = rentals.nextElement();
 			
 			///< datermine amounts for each line
-			thisAmount = amountFor(each);
+			thisAmount = each.getCharge();
 			
 			///< add frequent renter points
 			frequentRenterPoints++;
@@ -77,32 +77,5 @@ public class Customer {
 		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
 		result += "You earned " + String.valueOf(frequentRenterPoints) + " frequest renter points";
 		return result;
-	}
-	
-	///< 重构第一步 分解并重组 statement() 
-	private double amountFor(Rental aRental) {
-		double result = 0;	
-		
-		switch (aRental.getMovie().getPriceCode()) {
-		case Movie.REGULAR:
-			result += 2;
-			if (aRental.getDaysRentded() > 2) {
-				result += (aRental.getDaysRentded() - 2) * 1.5;
-			}
-			break;
-			
-		case Movie.NEW_RELEASE:
-			result += aRental.getDaysRentded() * 3;
-			break;
-			
-		case Movie.CHILDRENS:
-			result += 1.5;
-			if (aRental.getDaysRentded() > 3) {
-				result += (aRental.getDaysRentded() - 3) * 1.5;
-			}
-			break;				
-		}
-		
-		return result;
-	}
+	}		
 }
