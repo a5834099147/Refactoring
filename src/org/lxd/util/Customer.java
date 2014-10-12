@@ -80,29 +80,29 @@ public class Customer {
 	}
 	
 	///< 重构第一步 分解并重组 statement() 
-	private double amountFor(Rental each) {
-		double thisAmount = 0;	
+	private double amountFor(Rental aRental) {
+		double result = 0;	
 		
-		switch (each.getMovie().getPriceCode()) {
+		switch (aRental.getMovie().getPriceCode()) {
 		case Movie.REGULAR:
-			thisAmount += 2;
-			if (each.getDaysRentded() > 2) {
-				thisAmount += (each.getDaysRentded() - 2) * 1.5;
+			result += 2;
+			if (aRental.getDaysRentded() > 2) {
+				result += (aRental.getDaysRentded() - 2) * 1.5;
 			}
 			break;
 			
 		case Movie.NEW_RELEASE:
-			thisAmount += each.getDaysRentded() * 3;
+			result += aRental.getDaysRentded() * 3;
 			break;
 			
 		case Movie.CHILDRENS:
-			thisAmount += 1.5;
-			if (each.getDaysRentded() > 3) {
-				thisAmount += (each.getDaysRentded() - 3) * 1.5;
+			result += 1.5;
+			if (aRental.getDaysRentded() > 3) {
+				result += (aRental.getDaysRentded() - 3) * 1.5;
 			}
 			break;				
 		}
 		
-		return thisAmount;
+		return result;
 	}
 }
