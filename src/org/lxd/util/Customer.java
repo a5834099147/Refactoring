@@ -47,22 +47,15 @@ public class Customer {
 	///< 生成详单
 	public String statement()
 	{
-		double totalAmount = 0;
-		
+		double totalAmount = 0;		
 		int frequentRenterPoints = 0;
 		
 		Enumeration< Rental> rentals = _rentals.elements();
 		String result = "Rental Record for " + getName() + "\n";
 		
 		while (rentals.hasMoreElements()) {
-			Rental each = rentals.nextElement();				
-			
-			///< add frequent renter points
-			frequentRenterPoints++;
-			///< add bonus for a two day new telease rental
-			if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRentded() > 1) {
-				frequentRenterPoints++;
-			}
+			Rental each = rentals.nextElement();		
+			frequentRenterPoints += each.getFrequentRenterPoints();			
 			
 			///< show figures for this rental
 			result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
