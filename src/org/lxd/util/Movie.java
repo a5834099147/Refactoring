@@ -35,7 +35,8 @@ public class Movie {
 	
 	public Movie(String title, int priceCode) {
 		_title = title;
-		_priceCode = priceCode;
+		///< 确保任何时刻通过取值函数与设值函数访问类型代码
+		setPriceCode(priceCode);
 	}
 
 	public int getPriceCode() {
